@@ -1,4 +1,4 @@
-package br.com.ordensservico.aberturaordensservico.Controller;
+package br.com.ordensservico.aberturaordensservico.controller;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,9 +13,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import br.com.ordensservico.aberturaordensservico.Model.Equipamento;
-import br.com.ordensservico.aberturaordensservico.Service.EquipamentoService;
+import br.com.ordensservico.aberturaordensservico.model.Equipamento;
+import br.com.ordensservico.aberturaordensservico.service.EquipamentoService;
 
 @RestController 
 @RequestMapping ("/equipamentos")
@@ -41,20 +40,23 @@ public class EquipamentoController {
         }
     }
 
-    @GetMapping ("/setor/{setorId}")
-    public ResponseEntity<List<Equipamento>> listarPorSetor(@PathVariable Integer setorId){
-        List<Equipamento> equipamentos = equipamentoService.listarPorSetor(setorId);
-        if(equipamentos.isEmpty()){
-            return ResponseEntity.notFound().build();
-        } else {
-            return ResponseEntity.ok(equipamentos);
-        }
-        
-    }
+    //@GetMapping ("/setor/{setorId}")
+    //public ResponseEntity<List<Equipamento>> listarPorSetor(@PathVariable Integer setorId){
+    //    List<Equipamento> equipamentos = equipamentoService.listarPorSetor(setorId);
+    //    if(equipamentos.isEmpty()){
+    //        return ResponseEntity.notFound().build();
+    //    } else {
+    //        return ResponseEntity.ok(equipamentos);
+    //    }
+    //    
+    //}
 
     @PostMapping 
     public ResponseEntity<Equipamento> cadastrar(@RequestBody Equipamento equipamento){
         Optional<Equipamento> novoequipamento = equipamentoService.cadastrar(equipamento);
+        if(novoequipamento.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
         return ResponseEntity.status(HttpStatus.CREATED).body(novoequipamento.get());
         
     }

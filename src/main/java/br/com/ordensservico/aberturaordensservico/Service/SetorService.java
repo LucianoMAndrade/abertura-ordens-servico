@@ -1,12 +1,12 @@
-package br.com.ordensservico.aberturaordensservico.Service;
+package br.com.ordensservico.aberturaordensservico.service;
 
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import br.com.ordensservico.aberturaordensservico.Model.Setor;
-import br.com.ordensservico.aberturaordensservico.Repository.SetorRepository;
+import br.com.ordensservico.aberturaordensservico.model.Setor;
+import br.com.ordensservico.aberturaordensservico.repository.SetorRepository;
 
 @Service 
 public class SetorService {

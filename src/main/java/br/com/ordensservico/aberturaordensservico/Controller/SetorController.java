@@ -1,4 +1,4 @@
-package br.com.ordensservico.aberturaordensservico.Controller;
+package br.com.ordensservico.aberturaordensservico.controller;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.ordensservico.aberturaordensservico.Model.Setor;
-import br.com.ordensservico.aberturaordensservico.Service.SetorService;
+import br.com.ordensservico.aberturaordensservico.model.Setor;
+import br.com.ordensservico.aberturaordensservico.service.SetorService;
 import jakarta.validation.Valid;
 
 @RestController 

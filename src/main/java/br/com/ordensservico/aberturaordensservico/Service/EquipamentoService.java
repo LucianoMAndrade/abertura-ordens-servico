@@ -1,13 +1,14 @@
-package br.com.ordensservico.aberturaordensservico.Service;
+package br.com.ordensservico.aberturaordensservico.service;
 
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
-import br.com.ordensservico.aberturaordensservico.Model.Equipamento;
-import br.com.ordensservico.aberturaordensservico.Model.Setor;
-import br.com.ordensservico.aberturaordensservico.Repository.EquipamentoRepository;
-import br.com.ordensservico.aberturaordensservico.Repository.SetorRepository;
+
+import br.com.ordensservico.aberturaordensservico.model.Equipamento;
+import br.com.ordensservico.aberturaordensservico.model.Setor;
+import br.com.ordensservico.aberturaordensservico.repository.EquipamentoRepository;
+import br.com.ordensservico.aberturaordensservico.repository.SetorRepository;
 
 @Service 
 public class EquipamentoService {
@@ -32,7 +33,16 @@ public class EquipamentoService {
     }   
 
     public Optional<Equipamento> cadastrar(Equipamento equipamento){
-        return Optional.of(equipamentoRepository.save(equipamento));
+        Optional<Setor> setorEncontrado = setorRepository.findById(equipamento.getSetor().getId());
+        if(setorEncontrado.isEmpty()){
+            return Optional.empty();
+        }
+        Equipamento equipamentoCadastrado = new Equipamento();
+        equipamentoCadastrado.setNome(equipamento.getNome());
+        equipamentoCadastrado.setNumeroPatrimonio(equipamento.getNumeroPatrimonio());
+        equipamentoCadastrado.setSetor(equipamento.getSetor());
+        
+        return Optional.of(equipamentoRepository.save(equipamentoCadastrado));
     }
 
     public Optional<Equipamento> alterar(int id, Equipamento equipamentoAtualizado){

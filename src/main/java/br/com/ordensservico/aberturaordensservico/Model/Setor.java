@@ -1,4 +1,4 @@
-package br.com.ordensservico.aberturaordensservico.Model;
+package br.com.ordensservico.aberturaordensservico.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
