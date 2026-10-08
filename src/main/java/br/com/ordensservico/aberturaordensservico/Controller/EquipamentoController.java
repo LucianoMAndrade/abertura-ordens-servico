@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import br.com.ordensservico.aberturaordensservico.dto.EquipamentoRequest;
 import br.com.ordensservico.aberturaordensservico.model.Equipamento;
 import br.com.ordensservico.aberturaordensservico.service.EquipamentoService;
 import jakarta.validation.Valid;
@@ -53,17 +55,20 @@ public class EquipamentoController {
     //}
 
     @PostMapping 
-    public ResponseEntity<?> cadastrar(@Valid @RequestBody Equipamento equipamento){
+    public ResponseEntity<Equipamento> cadastrar(@Valid @RequestBody EquipamentoRequest equipamento){
+        
+        
         Optional<Equipamento> novoequipamento = equipamentoService.cadastrar(equipamento);
+        
         if(novoequipamento.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Setor não encontrado");
+            return ResponseEntity.notFound().build();
         }
         return ResponseEntity.status(HttpStatus.CREATED).body(novoequipamento.get());
         
     }
 
     @PutMapping ("/{id}")
-    public ResponseEntity<Equipamento> atualizar(@PathVariable Integer id, @Valid @RequestBody Equipamento equipamentoAtualizado){
+    public ResponseEntity<Equipamento> atualizar(@PathVariable Integer id, @Valid @RequestBody EquipamentoRequest equipamentoAtualizado){
         
         Optional<Equipamento> equipamento = equipamentoService.alterar(id, equipamentoAtualizado);
         if(equipamento.isPresent()){
