@@ -53,10 +53,10 @@ public class EquipamentoController {
     //}
 
     @PostMapping 
-    public ResponseEntity<Equipamento> cadastrar(@Valid @RequestBody Equipamento equipamento){
+    public ResponseEntity<?> cadastrar(@Valid @RequestBody Equipamento equipamento){
         Optional<Equipamento> novoequipamento = equipamentoService.cadastrar(equipamento);
         if(novoequipamento.isEmpty()){
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Setor não encontrado");
         }
         return ResponseEntity.status(HttpStatus.CREATED).body(novoequipamento.get());
         
