@@ -1,6 +1,5 @@
 package br.com.ordensservico.aberturaordensservico.dto;
 
-import java.time.LocalDateTime;
 
 
 import jakarta.validation.constraints.NotBlank;
@@ -14,7 +13,6 @@ public class OrdemServicoRequest {
     @NotBlank(message = "A descrição da Ordem de Serviço é obrigatória.")
     private String descricao;
 
-    private LocalDateTime dataAbertura;
 
     
     public OrdemServicoRequest(){
@@ -36,13 +34,7 @@ public class OrdemServicoRequest {
         this.descricao=descricao;
     }
 
-    public  LocalDateTime getDataAbertura(){
-        return dataAbertura;
-    }
-
-    public void setDataAbertura(LocalDateTime dataAbertura){
-        this.dataAbertura=dataAbertura;
-    }
+   
 
     
 }

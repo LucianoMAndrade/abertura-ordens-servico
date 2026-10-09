@@ -9,8 +9,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 
 @Entity 
 @Table (name = "ordem_servico")
@@ -19,14 +17,12 @@ public class OrdemServico {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotBlank(message = "A descrição da Ordem de Serviço é obrigatória.")
     private String descricao;
 
     private LocalDateTime dataAbertura;
 
     @ManyToOne 
     @JoinColumn (name = "equipamento_id", nullable = false)
-    @NotNull (message = "O código do equipamento não pode ser nulo.")
     private Equipamento equipamento;
 
     public OrdemServico(){
@@ -39,7 +35,7 @@ public class OrdemServico {
         this.equipamento=equipamento;
     }
 
-    public Integer getId() {
+    public Integer getOrdemServicoId() {
         return id;
     }
 
