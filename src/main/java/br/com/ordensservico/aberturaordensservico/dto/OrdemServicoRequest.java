@@ -16,7 +16,6 @@ public class OrdemServicoRequest {
 
     
     public OrdemServicoRequest(){
-
     }
 
     public void setEquipamentoId(Integer equipamentoId){
@@ -26,10 +25,10 @@ public class OrdemServicoRequest {
         return equipamentoId;
     }
 
+
     public String getDescricao(){
         return descricao;
     }
-
     public void setDescricao(String descricao){
         this.descricao=descricao;
     }

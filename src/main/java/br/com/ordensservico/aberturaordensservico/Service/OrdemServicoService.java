@@ -4,8 +4,11 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
+import br.com.ordensservico.aberturaordensservico.dto.EncerramentoOrdemServicoRequest;
 import br.com.ordensservico.aberturaordensservico.dto.OrdemServicoRequest;
 import br.com.ordensservico.aberturaordensservico.model.Equipamento;
 import br.com.ordensservico.aberturaordensservico.model.OrdemServico;
@@ -30,6 +33,10 @@ public class OrdemServicoService {
         return ordemServicoRepository.findById(id);
     }
 
+    public List<OrdemServico> listarAbertas() {
+        return ordemServicoRepository.findByDataEncerramentoIsNull();
+    }
+
     public Optional<OrdemServico> cadastrar(OrdemServicoRequest ordemServico){
 
         Optional<Equipamento> equipamentoEncontrado = equipamentoRepository.findById(ordemServico.getEquipamentoId());
@@ -44,6 +51,25 @@ public class OrdemServicoService {
         ordemServicoCadastrado.setEquipamento(equipamentoEncontrado.get());
         
         return Optional.of(ordemServicoRepository.save(ordemServicoCadastrado));
+    }
+
+    public Optional<OrdemServico> encerrar(Integer id, EncerramentoOrdemServicoRequest dados){
+        Optional<OrdemServico> encontrada = ordemServicoRepository.findById(id);
+        
+        if (encontrada.isEmpty()){
+            return Optional.empty();
+        }
+
+        OrdemServico ordemServico=encontrada.get();
+        
+        if(ordemServico.getDataEncerramento()==null){
+            ordemServico.setDataEncerramento(LocalDateTime.now());
+            ordemServico.setSolucao(dados.getSolucao());
+            ordemServicoRepository.save(ordemServico);
+            return Optional.of(ordemServico);
+        } else{
+            throw new ResponseStatusException(HttpStatus.CONFLICT,"Ordem de Serviço já encerrada.");
+        }
     }
 
 
